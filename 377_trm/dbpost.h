@@ -4,7 +4,8 @@
 #include <string>
 
 using namespace std;
-#define _CRT_SECURE_NO_WARNINGS 
+
+
 class Dbpost
 {
 public:
