@@ -27,7 +27,7 @@ public:
 	}
 
 
-	string operator[](unsigned int i)
+	string operator[](unsigned int i) 
 	{
 		map<unsigned int, post>::iterator iter=massPost.begin();
 		for (; i != 0; --i, ++iter);
@@ -60,7 +60,7 @@ public:
 		massPost.clear();
 	}
 
-	map<unsigned int, string>* top(unsigned int _N, unsigned int _dateB, unsigned int _dateE)
+	map<unsigned int, string>* top(unsigned int _N, unsigned int _dateB, unsigned int _dateE) 
 	{
 		map<unsigned int, post>::iterator iter = massPost.begin();
 		for (unsigned int i=_dateB;i>0;--i)
@@ -99,7 +99,7 @@ public:
 		return top(_N, i, i - 1);
 	
 	}
-	string get_date(unsigned int _i)
+	string get_date(unsigned int _i) 
 	{
 		std::string result;
 		std::map<unsigned int, post>::iterator iter = massPost.begin();
@@ -135,19 +135,7 @@ public:
 		unsigned int sizeofTrend(0), sizeCommon_post(0);
 		map<unsigned int, string> *massTop;
 		massTop = top(_N);
-		/*
-		for (map<unsigned int, string>::iterator iter = (*massTop).begin(); iter != (*massTop).end(); ++iter)
-		{
-			for (map<unsigned int, post>::iterator iter = massPost.begin(); iter != massPost.end(); ++iter)
-			{
-				if (iter->second.get_user_id() == _user_id)
-				{
-					if(iter->second.get_hashtag)
-				}
-			}
-				
-		}
-		//*/
+	
 		for (map<unsigned int, post>::iterator iter = massPost.begin(); iter != massPost.end(); ++iter)
 		{
 			if(iter->second.get_user_id() == _user_id)
@@ -164,7 +152,6 @@ public:
 			
 			
 		}
-		//cout << sizeCommon_post << endl << endl << sizeofTrend << endl;
 		return to_string((float)sizeofTrend/(float)sizeCommon_post);
 	}
 

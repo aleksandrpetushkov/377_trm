@@ -2,11 +2,30 @@
 #include <fstream>
 #include <string>
 #include "dbpost.h"
+#include "gtest/gtest.h"
 
 using namespace std;
 
 
-int main()
+TEST(DB)
+{
+	Dbpost dbp;
+	//Добавляем в БД 3 поста
+	dbp.add("1422748800 1 theater;"); 
+	dbp.add("1422835200 2 cinema;");
+	dbp.add("1422921600 1 cinema;");
+	
+	
+	EXPECT_EQ(3, dbp.Size());   //Проверяем что в БД 3 поста
+	//cout << "---\n" << dbp.get_date(0) << "\n---\n";
+	//Проверяем что первый пост в БД соответствует тому что мы добавили первой строкой, но без даты
+	EXPECT_EQ("1 theater", dbp[0]); 
+	EXPECT_EQ("2015 February 01", dbp.get_date(0)); //Проверяем дату первого поста переведенную из UNIX TIME stamp
+
+
+}
+
+int main(int argc, char* argv[])
 {
 	unsigned int user_id(0);
 	unsigned int menu(0),N(0);
@@ -72,22 +91,14 @@ int main()
 			cout << "Enter number date end: ";
 			cin >> dateE;
 			map<unsigned int, string> *massTop;
-			massTop = dbpost.top(N, dateB-1, dateE-1);
-			/*
-			for (map<unsigned int, string>::iterator iter = (*massTop).begin(); iter != (*massTop).end(); ++iter)
-			{
-				cout << iter->first << " " << iter->second << endl;
-			}
-			//*/
-			for (unsigned int i(0);(*massTop).size()>i;++i)
+			massTop = dbpost.top(N, dateB-1, dateE-1); //
+	
+			for (unsigned int i(0);(*massTop).size()>i;++i)  //
 			{
 				map<unsigned int, string>::iterator iter = (*massTop).begin();
 				for (unsigned int k = (*massTop).size()-1; k - i > 0; --k, ++iter){}
 				cout << iter->first << " " << iter->second << endl;
 			}
-			
-			//system("pause");
-		
 			break;
 		case 2:
 			cout << "Enter user ID: ";
@@ -115,6 +126,8 @@ int main()
 		}
 	}
 	
-
+	::testing::InitGoogleTest(&argc, argv);
+	RUN_ALL_TESTS();
+	system("pause");
 	cin.get();
 }
